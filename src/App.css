@@ -1,0 +1,85 @@
+.App {
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.input-div1 {
+	margin-bottom: 5px;
+}
+
+.label1 {
+	display: block;
+	margin-right: 85px;
+}
+
+.label2 {
+	display: block;
+	margin-right: 103px;
+}
+
+.label3 {
+	display: block;
+	margin-right: 109px;
+}
+
+.label4 {
+	display: block;
+	margin-right: 107px;
+}
+
+.label5 {
+	display: block;
+	margin-right: 53px;
+}
+
+.input1 {
+	margin-left: 5px;
+}
+
+.reqsymbol {
+	color: #ff0000;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+.visible {
+  border: 3px solid black;
+  display: visible;
+  display: block;
+}
+
+.sector {
+  border: 3px solid black;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
