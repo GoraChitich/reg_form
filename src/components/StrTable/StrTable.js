@@ -16,7 +16,10 @@ export default function StrTable(params) {
 
     return (
         <div className="strtable-c">
-            <h2>{`Person # ${params.index+1}`}</h2>
+            <div className="title"> 
+                <h2>{`Person # ${params.index+1}`}</h2> 
+                <button onClick={params.deleteRecord}>Delete</button>
+            </div>
             <div className='input-div1'>
                 <label className='label1' htmlFor='firstname{index}'>Vorname <span class="reqsymbol">*</span></label>
                 <input type='text' name="firstname{index}" id='firstname{index}' className='input1' value={firstname} onChange={(e) => setFirstName(e.target.value)} required />
@@ -42,7 +45,6 @@ export default function StrTable(params) {
                 {/* <DatePicker name='birthdate{index}' id='birthdate{index}' selected={record.birthdate} required dateFormat="yyyy-MM-dd"
 							peekNextMonth={true} showMonthDropdown={true} showYearDropdown={true} dropdownMode="select" shouldCloseOnSelect={true} /> */}
             </div>
-            <button onClick={params.deleteRecord}>Delete</button>
         </div>
     );
 }

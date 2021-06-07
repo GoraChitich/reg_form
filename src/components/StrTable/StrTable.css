@@ -4,3 +4,8 @@
     display: block;
     padding: 10px;
 }
+.strtable-c .title{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

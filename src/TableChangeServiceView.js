@@ -3,11 +3,11 @@ import dateFormat from 'dateformat';
 import settings from './settings.json'
 
 class TableChangeServiceView {
-	constructor(){
+	constructor() {
 		this.url = settings.sheet;
 	}
 
-	async getRecords(idOrder){
+	async getRecords(idOrder) {
 		return await axios.get(`${this.url}/idOrder/${idOrder}`);
 	}
 
@@ -17,11 +17,11 @@ class TableChangeServiceView {
 			case 1: {
 				let dataRequest = [{
 					number: index,
-					firstname: record.firstname, 
-					lastname: record.lastname, 
-					phone: record.phone, 
-					email: record.email, 
-					birhtDate: dateFormat(record.birthdate, "yyyy-mm-dd"),
+					firstname: record.firstname,
+					lastname: record.lastname,
+					phone: record.phone,
+					email: record.email,
+					birtрDate: dateFormat(record.birthdate, "yyyy-mm-dd"),
 					idRow: record.id,
 					idOrder,
 					emailOwner,
@@ -51,12 +51,11 @@ class TableChangeServiceView {
 
 	}
 
-	deleteRecord(id, dbType) {
+
+	async deleteRecord(id, dbType) {
 		switch (dbType) {
 			case 1: {
-				axios.delete(`${this.url}/number/${id}`).then(res => {
-					console.log("the appointment was canceled");
-				});
+				return await axios.delete(`${this.url}/idOrder/${id}`)
 			}
 			default: {
 				//
@@ -64,32 +63,33 @@ class TableChangeServiceView {
 		}
 	}
 
-	/**
-	 * make uodate
-	 * depend on dbType
-	 * for google tables is 1
-	 * @param {} record 
-	 * @param {*} dbType
-	 */
-	updateRecord(record, dbType) {
-		switch (dbType) {
-			case 1: {
-				let url = `${this.url}/${this.state.numberUpdate - 1}`;
-				let dataRequest = [{ number: record.numberUpdate, firstname: record.firstname, lastname: record.lastname, phone: record.phone, email: record.email, birhtDate: record.birhtDate }];
-				let options = {
-					method: "PATCH",
-					headers: { "accept": "application/json", "content-type": "application/json" },
-					data: dataRequest,
-					url
-				};
-				axios(options).then(res => {
-					console.log("the data was updated for row ", this.state.numberUpdate);
-				}).catch(er => {
-					console.log("error on update ", er);
-				});
-			}
-		}
-	}
+
+	// /**
+	//  * make uodate
+	//  * depend on dbType
+	//  * for google tables is 1
+	//  * @param {} record 
+	//  * @param {*} dbType
+	//  */
+	// updateRecord(record, dbType) {
+	// 	switch (dbType) {
+	// 		case 1: {
+	// 			let url = `${this.url}/${this.state.numberUpdate - 1}`;
+	// 			let dataRequest = [{ number: record.numberUpdate, firstname: record.firstname, lastname: record.lastname, phone: record.phone, email: record.email, birhtDate: record.birhtDate }];
+	// 			let options = {
+	// 				method: "PATCH",
+	// 				headers: { "accept": "application/json", "content-type": "application/json" },
+	// 				data: dataRequest,
+	// 				url
+	// 			};
+	// 			axios(options).then(res => {
+	// 				console.log("the data was updated for row ", this.state.numberUpdate);
+	// 			}).catch(er => {
+	// 				console.log("error on update ", er);
+	// 			});
+	// 		}
+	// 	}
+	// }
 
 }
 

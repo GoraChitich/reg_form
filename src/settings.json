@@ -2,7 +2,8 @@
     "emailjs":{
         "service_id":"service_ekyvguk",
         "user_id":"user_xlCrMdFfdIceV8ODHixvy",
-        "template_id":"template_9ymcj28",
+        "templateAdd_id":"template_9ymcj28",
+        "templateUpdate_id":"template_ocwll5c",
         "from_name": "smolbars@gmail.com"
     },
     "site": {

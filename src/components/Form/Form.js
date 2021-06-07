@@ -20,14 +20,15 @@ class Form extends Component {
 
 	constructor(props) {
 		super(props);
-		console.log(props);
+		this.propsID = props.id;
+		// console.log(props);
 		// const params = new URLSearchParams(props.location.search);
 		const numRecords = [1, 2, 3, 4, 5, 6];
 		const isUpdate = props.update;
 		// let isUpdate = params.get('isUpdate');
 		// let cntPersons = params.get('cntPersons');
 		// this case - update exists records in the table
-		if (props.id) {
+		if (this.propsID) {
 			this.state = {
 				idOrder: props.id,
 				records: [],
@@ -76,18 +77,17 @@ class Form extends Component {
 			// }
 		}
 		this.changeOfPersons = this.changeOfPersons.bind(this);
-		this.createUpdateStr = this.createUpdateStr.bind(this);
 		this.presetRegistryButton = this.presetRegistryButton.bind(this);
-		this.handleChangeDatePicker = this.handleChangeDatePicker.bind(this);
-		this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
-		this.handleChangeLastName = this.handleChangeLastName.bind(this);
-		this.handleChangeEmail = this.handleChangeEmail.bind(this);
-		this.handleChangePhone = this.handleChangePhone.bind(this);
+		// this.handleChangeDatePicker = this.handleChangeDatePicker.bind(this);
+		// this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
+		// this.handleChangeLastName = this.handleChangeLastName.bind(this);
+		// this.handleChangeEmail = this.handleChangeEmail.bind(this);
+		// this.handleChangePhone = this.handleChangePhone.bind(this);
 		this.submitHandler = this.submitHandler.bind(this);
-		this.submitHandlerUpdate = this.handleChangePhone.bind(this);
-		this.submitHandlerAdd = this.submitHandlerAdd.bind(this);
-		this.getTdsOfTr = this.getTdsOfTr.bind(this);
-		this.getFirstDataFromTable = this.getFirstDataFromTable.bind(this);
+		// this.submitHandlerUpdate = this.handleChangePhone.bind(this);
+		// this.submitHandlerAdd = this.submitHandlerAdd.bind(this);
+		// this.getTdsOfTr = this.getTdsOfTr.bind(this);
+		// this.getFirstDataFromTable = this.getFirstDataFromTable.bind(this);
 		this.tableChangeServiceView = new TableChangeServiceView();
 	}
 
@@ -122,114 +122,102 @@ class Form extends Component {
 		}
 	}
 
-	handleChangeDatePicker(date) {
-		this.state.actualDate = date;
-	}
+	// handleChangeDatePicker(date) {
+	// 	this.state.actualDate = date;
+	// }
 
-	getTdsOfTr(node) {
-		// 	var attrs = node.attributes;
-		// 	for (var key in attrs) {
-		// 		if (attrs[key] === 'height: 20px'); {
-		// 			if (
-		// 				(node.childNodes[1] != null) && (node.childNodes[2].childNodes[0] != null) && (node.childNodes[2].childNodes[0].rawText != null) &&
-		// 				(node.childNodes[2] != null) && (node.childNodes[3].childNodes[0] != null) && (node.childNodes[3].childNodes[0].rawText != null)
-		// 			) {
-		// 				let currentRow = [{ "number": node.childNodes[1].childNodes[0].rawText, "firstname": node.childNodes[2].childNodes[0].rawText }, { "lastname": node.childNodes[3].childNodes[0].rawText }];
-		// 				this.state.googleTab.push(currentRow);
-		// 				// this.presetRegistryButton();
-		// 				return;
-		// 			}
-		// 		}
-		// 	}
-	}
+	// getTdsOfTr(node) {
+	// 	// 	var attrs = node.attributes;
+	// 	// 	for (var key in attrs) {
+	// 	// 		if (attrs[key] === 'height: 20px'); {
+	// 	// 			if (
+	// 	// 				(node.childNodes[1] != null) && (node.childNodes[2].childNodes[0] != null) && (node.childNodes[2].childNodes[0].rawText != null) &&
+	// 	// 				(node.childNodes[2] != null) && (node.childNodes[3].childNodes[0] != null) && (node.childNodes[3].childNodes[0].rawText != null)
+	// 	// 			) {
+	// 	// 				let currentRow = [{ "number": node.childNodes[1].childNodes[0].rawText, "firstname": node.childNodes[2].childNodes[0].rawText }, { "lastname": node.childNodes[3].childNodes[0].rawText }];
+	// 	// 				this.state.googleTab.push(currentRow);
+	// 	// 				// this.presetRegistryButton();
+	// 	// 				return;
+	// 	// 			}
+	// 	// 		}
+	// 	// 	}
+	// }
 
 
-	getFirstDataFromTable() {
-		// let url = "https://docs.google.com/spreadsheets/d/14z1wb8Ei0-6rwiS6qUIvz8BJVEWhK0IMIOJnvCvkz94/edit#gid=0";
-		// axios.get(url).then(res => {
-		// 	const restData = res.data;
-		// 	var root = HTMLParser.parse(restData);
-		// 	var tabTag = root.querySelector('table');
-		// 	if (tabTag != null) {
-		// 		var tabBody = tabTag.querySelector('tbody');
-		// 		if ((tabBody != null) && (tabBody.childNodes != null)) {
-		// 			tabBody.childNodes.forEach(this.getTdsOfTr);
-		// 		}
-		// 	}
-		// }
-		// 	//	this.setState({ restData });
-		// );
-	}
+	// getFirstDataFromTable() {
+	// 	// let url = "https://docs.google.com/spreadsheets/d/14z1wb8Ei0-6rwiS6qUIvz8BJVEWhK0IMIOJnvCvkz94/edit#gid=0";
+	// 	// axios.get(url).then(res => {
+	// 	// 	const restData = res.data;
+	// 	// 	var root = HTMLParser.parse(restData);
+	// 	// 	var tabTag = root.querySelector('table');
+	// 	// 	if (tabTag != null) {
+	// 	// 		var tabBody = tabTag.querySelector('tbody');
+	// 	// 		if ((tabBody != null) && (tabBody.childNodes != null)) {
+	// 	// 			tabBody.childNodes.forEach(this.getTdsOfTr);
+	// 	// 		}
+	// 	// 	}
+	// 	// }
+	// 	// 	//	this.setState({ restData });
+	// 	// );
+	// }
 
-	handleChangeFirstName(event) {
-		this.setState({ firstname: event.target.value });
-	}
+	// handleChangeFirstName(event) {
+	// 	this.setState({ firstname: event.target.value });
+	// }
 
-	handleChangeLastName(event) {
-		this.setState({ lastname: event.target.value });
-	}
+	// handleChangeLastName(event) {
+	// 	this.setState({ lastname: event.target.value });
+	// }
 
-	handleChangeEmail(event) {
-		this.setState({ email: event.target.value });
-	}
+	// handleChangeEmail(event) {
+	// 	this.setState({ email: event.target.value });
+	// }
 
-	handleChangePhone(event) {
-		this.setState({ phone: event.target.value });
-	}
+	// handleChangePhone(event) {
+	// 	this.setState({ phone: event.target.value });
+	// }
 
 	submitHandler(event) {
 		event.preventDefault();
-		if (this.state.isUpdate) {
+		if (this.propsID) {
 			this.submitHandlerUpdate();
 		} else {
 			this.submitHandlerAdd();
 		}
 	}
 
-	/**
-	 * created a string for not duplicate a code for update link
-	 * @param {*} inStr 
-	 * @returns 
-	 */
-	createUpdateStr(inStr) {
-		let htmlBody = inStr + ` beim Liturgie in russischen Orthodoxkirche Stuttgart am , ${this.state.actualDate} mit folgenden Link können Sie den Termin stornieren <a href="${settings.site.host}/delAppointment?id=${this.state.idOrder}">Termin stornieren </a>, mit folgenden Link können Sie den Termin ändern <a href="${settings.site.host}/updateAppointment?id=${this.state.idOrder}">Termin ändern</a>`;
-		// let updateStr;
-		// let cnt = 0;
-		// this.state.records.forEach(record => {
-		// 	// this.tableChangeServiceView.updateRecord(record, 1);
-		// 	cnt++;
-		// 	updateStr = updateStr + "&firstname " + cnt + "="
-		// 		+ record.firstname + "&lastname" + cnt + "=" + record.lastname +
-		// 		"&phone" + cnt + "=" + record.phone + "&mail" + cnt + "=" + record.email
-		// 		+ "birthdate" + cnt + "=" + record.birthdate;
-
-		// });
-		return htmlBody;
-		// return htmlBody + updateStr + "\">Termin ändern</a>"
-	}
 
 	/**
 	 * update a row with new variables
 	 */
 	submitHandlerUpdate() {
-
-		emailjs.init("user_kKJTlTMteUmJ0TVwOLNC2");
-		let templateParams = {
-			from_name: 'smolbars@gmail.com',
-			to_name: this.state.email,
-		};
-		emailjs.send(
-			'service_1ls6zy5',
-			'template_beve9nh',
-			templateParams
-		).then(
-			function (response) {
-				console.log(response.status, response.text);
-			},
-			function (err) {
-				console.log(err);
-			}
+		this.tableChangeServiceView.deleteRecord(this.state.idOrder, 1).then(result =>
+			this.state.records.forEach((element, index) => this.tableChangeServiceView.insertRecord(element, 1, index + 1, this.state.idOrder, this.state.regEmail, this.state.actualDate, this.state.actualTime))
 		);
+
+		this.state.records.forEach((element, index) => {
+			//1. update records
+			emailjs.init(settings.emailjs.user_id);
+			let templateParams = {
+				from_name: settings.emailjs.from_name,
+				to_name: this.state.email,
+			};
+			emailjs.send(
+				settings.emailjs.service_id,
+				settings.emailjs.templateUpdate_id,
+				templateParams
+			).then(
+				function (response) {
+					console.log(response.status, response.text);
+				},
+				function (err) {
+					console.log(err);
+				}
+			);
+		}
+
+		);
+
 		this.setState({ redirect: true });
 	}
 
@@ -249,7 +237,7 @@ class Form extends Component {
 			};
 			emailjs.send(
 				settings.emailjs.service_id,
-				settings.emailjs.template_id,
+				settings.emailjs.templateAdd_id,
 				templateParams
 			).then(
 				function (response) {
@@ -288,7 +276,7 @@ class Form extends Component {
 		}
 		else {
 			//the first start of form - read a google table and show a registration form
-			this.getFirstDataFromTable();
+			// this.getFirstDataFromTable();
 			let index = 0;
 			const items = this.state.records.map((record, index) =>
 				<StrTable
@@ -317,8 +305,8 @@ class Form extends Component {
 								showMonthDropdown={true} showYearDropdown={true} dropdownMode="select" shouldCloseOnSelect={true} />
 						</div>
 						<div><label>Typ der Anbetung:</label></div>
-						<label><input type='radio' id='prayer' name='prayer' value='1' onChange={() => this.setState({ actualTime: '10-00' })} checked={this.state.actualTime==='10-00'} />Morgen (um 10.00)</label><br></br>
-						<label><input type='radio' id='prayer' name='prayer' value='2' onChange={() => this.setState({ actualTime: '18-00' })} checked={this.state.actualTime==='18-00'} />Abend (um 18.00)</label><br></br>
+						<label><input type='radio' id='prayer' name='prayer' value='1' onChange={() => this.setState({ actualTime: '10-00' })} checked={this.state.actualTime === '10-00'} />Morgen (um 10.00)</label><br></br>
+						<label><input type='radio' id='prayer' name='prayer' value='2' onChange={() => this.setState({ actualTime: '18-00' })} checked={this.state.actualTime === '18-00'} />Abend (um 18.00)</label><br></br>
 						{/* <label><input type="radio" id='prayer' name='prayer' value='3' />Lithurgie</label><br></br> */}
 						<div>
 							<label>Anzahl der Personen: <b> {this.state.records.length}</b></label>

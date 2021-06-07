@@ -2,20 +2,18 @@ import './App.css';
 import React, { Component } from 'react';
 import Form from './components/Form/Form.js';
 import FormUpdate from './components/FormUpdate/FormUpdate.js';
-// import ReadList from './ReadList.js';
-// <Route path="/test" exact component={ReadList}/>
 
-import DelAppointment from './DelAppointment.js';
 import { BrowserRouter as Route, Switch, HashRouter } from "react-router-dom"
+import DeleteOrder from './components/DeleteOrder/DeleteOrder';
 
 class App extends Component {
 
   render() {
-    // const baseName = process.env.PUBLIC_URL;
+     const baseName = process.env.PUBLIC_URL;
 
     return (
       <div className="App">
-        <HashRouter >
+        <HashRouter basename={baseName} >
           <Switch>
             <Route path="/" exact >
               <Form />
@@ -23,8 +21,9 @@ class App extends Component {
             <Route path="/update/:id" exact>
               <FormUpdate />
             </Route>
-            <Route path="/updateAppointment" exact component={Form} />
-            <Route path="/delAppointment" exact component={DelAppointment} />
+            <Route path="/delete/:id" exact>
+              <DeleteOrder />
+            </Route>
           </Switch>
         </HashRouter>
       </div>
