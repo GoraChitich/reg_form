@@ -9,21 +9,27 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import Record from './../../models/Record';
 import TableChangeServiceView from './../../TableChangeServiceView.js'
 import StrTable from '../StrTable/StrTable';
-import {generateID} from '../../models/utils'
+import { generateID, getDateFromFormat } from '../../models/utils'
 import './Form.css'
+
+import settings from '../../settings.json'
+import { useParams } from 'react-router';
 
 
 class Form extends Component {
 
 	constructor(props) {
 		super(props);
-		const params = new URLSearchParams(props.location.search);
+		console.log(props);
+		// const params = new URLSearchParams(props.location.search);
 		const numRecords = [1, 2, 3, 4, 5, 6];
-		let isUpdate = params.get('isUpdate');
-		let cntPersons = params.get('cntPersons');
+		const isUpdate = props.update;
+		// let isUpdate = params.get('isUpdate');
+		// let cntPersons = params.get('cntPersons');
 		// this case - update exists records in the table
-		if (isUpdate) {
+		if (props.id) {
 			this.state = {
+				idOrder: props.id,
 				records: [],
 				googleTab: [],
 				isTableFilled: false,
@@ -31,20 +37,20 @@ class Form extends Component {
 				maxCountOfPersons: 50,
 				regButton: false,
 				regButtonCaption: "Ändern",
-				actualDate: new Date(params.get('date') + 'T00:00:00Z'),
+				// actualDate: new Date(params.get('date') + 'T00:00:00Z'),
 				// the number for update
-				numberUpdate: params.get('number')
+				// numberUpdate: params.get('number')
 			};
 			// set records to array for show data for update 
-			for (let i = 0; i < cntPersons - 1; i++) {
-				new Record().setRecord(params.get('firstname' + i + 1),
-					params.get('lastname' + i + 1),
-					params.get('phone' + i + 1),
-					params.get('email' + i + 1),
-					params.get('birhtday' + i + 1)
-				);
-				this.state.records.push(Record);
-			}
+			// for (let i = 0; i < cntPersons - 1; i++) {
+			// 	new Record().setRecord(params.get('firstname' + i + 1),
+			// 		params.get('lastname' + i + 1),
+			// 		params.get('phone' + i + 1),
+			// 		params.get('email' + i + 1),
+			// 		params.get('birhtday' + i + 1)
+			// 	);
+			// 	this.state.records.push(Record);
+			// }
 
 		}
 		// case adding data in the table (the first setting data)
@@ -85,6 +91,24 @@ class Form extends Component {
 		this.tableChangeServiceView = new TableChangeServiceView();
 	}
 
+	componentDidMount() {
+		if (this.props.id) {
+			const ob = new TableChangeServiceView();
+			ob.getRecords(this.props.id)
+				.then((result) => {
+
+					const records = result.data.map(element => new Record(element));
+					this.setState({
+						records: records,
+						regEmail: result.data[0].emailOwner,
+						idOrder: result.data[0].idOrder,
+						actualDate: getDateFromFormat(result.data[0].actualDate),
+						actualTime: result.data[0].actualTime
+					});
+				})
+				.catch((error) => console.error(error));
+		}
+	}
 	changeOfPersons(event) {
 
 	}
@@ -102,22 +126,22 @@ class Form extends Component {
 		this.state.actualDate = date;
 	}
 
-	 getTdsOfTr(node) {
-	// 	var attrs = node.attributes;
-	// 	for (var key in attrs) {
-	// 		if (attrs[key] === 'height: 20px'); {
-	// 			if (
-	// 				(node.childNodes[1] != null) && (node.childNodes[2].childNodes[0] != null) && (node.childNodes[2].childNodes[0].rawText != null) &&
-	// 				(node.childNodes[2] != null) && (node.childNodes[3].childNodes[0] != null) && (node.childNodes[3].childNodes[0].rawText != null)
-	// 			) {
-	// 				let currentRow = [{ "number": node.childNodes[1].childNodes[0].rawText, "firstname": node.childNodes[2].childNodes[0].rawText }, { "lastname": node.childNodes[3].childNodes[0].rawText }];
-	// 				this.state.googleTab.push(currentRow);
-	// 				// this.presetRegistryButton();
-	// 				return;
-	// 			}
-	// 		}
-	// 	}
-	 }
+	getTdsOfTr(node) {
+		// 	var attrs = node.attributes;
+		// 	for (var key in attrs) {
+		// 		if (attrs[key] === 'height: 20px'); {
+		// 			if (
+		// 				(node.childNodes[1] != null) && (node.childNodes[2].childNodes[0] != null) && (node.childNodes[2].childNodes[0].rawText != null) &&
+		// 				(node.childNodes[2] != null) && (node.childNodes[3].childNodes[0] != null) && (node.childNodes[3].childNodes[0].rawText != null)
+		// 			) {
+		// 				let currentRow = [{ "number": node.childNodes[1].childNodes[0].rawText, "firstname": node.childNodes[2].childNodes[0].rawText }, { "lastname": node.childNodes[3].childNodes[0].rawText }];
+		// 				this.state.googleTab.push(currentRow);
+		// 				// this.presetRegistryButton();
+		// 				return;
+		// 			}
+		// 		}
+		// 	}
+	}
 
 
 	getFirstDataFromTable() {
@@ -168,21 +192,20 @@ class Form extends Component {
 	 * @returns 
 	 */
 	createUpdateStr(inStr) {
-		let htmlBody = inStr + " beim Liturgie in russischen Orthodoxkirche Stuttgart am , " + this.state.actualDate +
-			" mit folgenden Link können Sie den Termin stornieren <a href=\"http://localhost:3000/delAppointment?number=" + this.state.records[0].number +
-			"\">Termin stornieren </a>, mit folgenden Link können Sie den Termin ändern <a href=\"http://localhost:3000/updateAppointment?isUpdate=true";
-		let updateStr;
-		let cnt = 0;
-		this.state.records.forEach(record => {
-			this.tableChangeServiceView.updateRecord(record, 1);
-			cnt++;
-			updateStr = updateStr + "&firstname " + cnt + "="
-				+ record.firstname + "&lastname" + cnt + "=" + record.lastname +
-				"&phone" + cnt + "=" + record.phone + "&mail" + cnt + "=" + record.email
-				+ "birthdate" + cnt + "=" + record.birthdate;
+		let htmlBody = inStr + ` beim Liturgie in russischen Orthodoxkirche Stuttgart am , ${this.state.actualDate} mit folgenden Link können Sie den Termin stornieren <a href="${settings.site.host}/delAppointment?id=${this.state.idOrder}">Termin stornieren </a>, mit folgenden Link können Sie den Termin ändern <a href="${settings.site.host}/updateAppointment?id=${this.state.idOrder}">Termin ändern</a>`;
+		// let updateStr;
+		// let cnt = 0;
+		// this.state.records.forEach(record => {
+		// 	// this.tableChangeServiceView.updateRecord(record, 1);
+		// 	cnt++;
+		// 	updateStr = updateStr + "&firstname " + cnt + "="
+		// 		+ record.firstname + "&lastname" + cnt + "=" + record.lastname +
+		// 		"&phone" + cnt + "=" + record.phone + "&mail" + cnt + "=" + record.email
+		// 		+ "birthdate" + cnt + "=" + record.birthdate;
 
-		});
-		return htmlBody + updateStr + "\">Termin ändern</a>"
+		// });
+		return htmlBody;
+		// return htmlBody + updateStr + "\">Termin ändern</a>"
 	}
 
 	/**
@@ -194,8 +217,6 @@ class Form extends Component {
 		let templateParams = {
 			from_name: 'smolbars@gmail.com',
 			to_name: this.state.email,
-			subject: "Anmeldung auf der Liturgie in russischen Orthodoxkirche Stuttgart",
-			html: this.createUpdateStr("Sehr geehrte Damen und Herren, Sie haben erfoglreich geändert")
 		};
 		emailjs.send(
 			'service_1ls6zy5',
@@ -215,28 +236,31 @@ class Form extends Component {
 
 	submitHandlerAdd() {
 		//1. saving all records
-		this.state.records.forEach((element, index) => this.tableChangeServiceView.insertRecord(element,1, index+1, this.state.idOrder, this.state.regEmail, this.state.actualDate, this.state.actualTime) )
+		this.state.records.forEach((element, index) => this.tableChangeServiceView.insertRecord(element, 1, index + 1, this.state.idOrder, this.state.regEmail, this.state.actualDate, this.state.actualTime))
 		// this.tableChangeServiceView.insertRecord(this.state.records[0],1);
 
-		// emailjs.init("user_kKJTlTMteUmJ0TVwOLNC2");
-		// let templateParams = {
-		// 	from_name: 'smolbars@gmail.com',
-		// 	to_name: this.state.email,
-		// 	subject: "Anmeldung auf der Liturgie in russischen Orthodoxkirche Stuttgart",
-		// 	html: this.createUpdateStr("Sehr geehrte Damen und Herren, Sie haben erfoglreich angemeldet")
-		// };
-		// emailjs.send(
-		// 	'service_1ls6zy5',
-		// 	'template_beve9nh',
-		// 	templateParams
-		// ).then(
-		// 	function (response) {
-		// 		console.log(response.status, response.text);
-		// 	},
-		// 	function (err) {
-		// 		console.log(err);
-		// 	}
-		// );
+		this.state.records.forEach((element, index) => {
+			emailjs.init(settings.emailjs.user_id);
+			let templateParams = {
+				from_name: settings.emailjs.from_name,
+				to_name: element.email,
+				link_delete: `${settings.site.host}#/delete/${this.state.idOrder}`,
+				link_update: `${settings.site.host}#/update/${this.state.idOrder}`,
+			};
+			emailjs.send(
+				settings.emailjs.service_id,
+				settings.emailjs.template_id,
+				templateParams
+			).then(
+				function (response) {
+					console.log(response.status, response.text);
+				},
+				function (err) {
+					console.log(err);
+				}
+			);
+		});
+
 		this.setState({ redirect: true });
 	}
 
@@ -256,7 +280,7 @@ class Form extends Component {
 					})
 					}
 					</tbody>
-					<button onClick={()=>this.delAppointment()}>
+					<button onClick={() => this.delAppointment()}>
 						Termin stornieren
 		    </button>
 				</table>
@@ -270,8 +294,9 @@ class Form extends Component {
 				<StrTable
 					record={record}
 					index={index}
-					funcCallBack={(result) => { 
-						this.state.records[index] = result }}
+					funcCallBack={(result) => {
+						this.state.records[index] = result
+					}}
 					deleteRecord={() => {
 						//copy array and delete current element
 						console.log(this.state.records);
@@ -288,22 +313,22 @@ class Form extends Component {
 					<div class='sector'>
 						<div>
 							<label> Termin der Lithurigie oder Dienst</label>
-							<DatePicker selected={this.state.actualDate} onSelect={(date) => this.setState({actualDate: date})} dateFormat="yyyy-MM-dd" peekNextMonth={true}
+							<DatePicker selected={this.state.actualDate} onSelect={(date) => this.setState({ actualDate: date })} dateFormat="yyyy-MM-dd" peekNextMonth={true}
 								showMonthDropdown={true} showYearDropdown={true} dropdownMode="select" shouldCloseOnSelect={true} />
 						</div>
 						<div><label>Typ der Anbetung:</label></div>
-						<label><input type='radio' id='prayer' name='prayer' value='1' onChange={()=> this.setState({ actualTime: '10-00'})} checked />Morgen (um 10.00)</label><br></br>
-						<label><input type='radio' id='prayer' name='prayer' value='2' onChange={()=> this.setState({ actualTime: '18-00'})} />Abend (um 18.00)</label><br></br>
+						<label><input type='radio' id='prayer' name='prayer' value='1' onChange={() => this.setState({ actualTime: '10-00' })} checked={this.state.actualTime==='10-00'} />Morgen (um 10.00)</label><br></br>
+						<label><input type='radio' id='prayer' name='prayer' value='2' onChange={() => this.setState({ actualTime: '18-00' })} checked={this.state.actualTime==='18-00'} />Abend (um 18.00)</label><br></br>
 						{/* <label><input type="radio" id='prayer' name='prayer' value='3' />Lithurgie</label><br></br> */}
 						<div>
 							<label>Anzahl der Personen: <b> {this.state.records.length}</b></label>
-							
+
 						</div>
 						<div className='reg-email'>
-								<label className='' htmlFor='regemail'>Email for registration <span class="reqsymbol">*</span></label>
-								<input type='text' name="regemail" id='regemail' className='input1' value={this.state.regEmail} onChange={(e) => this.setState({regEmail: e.target.value})} required />
-								{/* <input type='text' name="firstname{index}" id='firstname{index}' className='input1' value={record.firstname} onChange={this.handleChangeFirstName} required /> */}
-							</div>
+							<label className='' htmlFor='regemail'>Email for registration <span class="reqsymbol">*</span></label>
+							<input type='text' name="regemail" id='regemail' className='input1' value={this.state.regEmail} onChange={(e) => this.setState({ regEmail: e.target.value })} required />
+							{/* <input type='text' name="firstname{index}" id='firstname{index}' className='input1' value={record.firstname} onChange={this.handleChangeFirstName} required /> */}
+						</div>
 					</div>
 					<br></br>
 					{items}

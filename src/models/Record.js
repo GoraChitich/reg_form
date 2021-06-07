@@ -1,18 +1,31 @@
-import { generateID } from "./utils";
+import { generateID, getDateFromFormat } from "./utils";
 
 class Record {
-	
-	constructor(props) {
-        
-            this.firstname= '';
-            this.lastname= '';
-            this.email= '';
-            this.phone =  '';
+
+    constructor(props) {
+        if (props) {
+            this.firstname = props.firstname;
+            this.lastname = props.lastname;
+            this.email = props.email;
+            this.phone = props.phone;
+            //2021-06-07
+            this.birthdate = getDateFromFormat(props.birthDate);
+            this.isVisible = "???";
+            this.id = props.idRow;
+  
+        } else {
+            this.firstname = '';
+            this.lastname = '';
+            this.email = '';
+            this.phone = '';
             this.birthdate = '';
-         this.isVisible = '';
-         this.id = generateID();
-        			
-	}
+            this.isVisible = '';
+            this.id = generateID();
+
+        }
+
+
+    }
 
     /**
      * set a content of record
@@ -22,7 +35,7 @@ class Record {
      * @param {*} phone 
      * @param {*} birthdate 
      */
-     createRecord(firstname, lastname, email, phone, birthdate, visible) {
+    createRecord(firstname, lastname, email, phone, birthdate, visible) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -33,6 +46,8 @@ class Record {
 
         return this;
     }
+
+
 
 }
 export default Record;

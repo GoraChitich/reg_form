@@ -4,8 +4,8 @@ import DatePicker from "react-datepicker";
 import './StrTable.css';
 
 export default function StrTable(params) {
-    const [firstname, setFirstName] = useState(params.record.firstName);
-    const [lastname, setLastName] = useState(params.record.lastName);
+    const [firstname, setFirstName] = useState(params.record.firstname);
+    const [lastname, setLastName] = useState(params.record.lastname);
     const [email, setEmail] = useState(params.record.email);
     const [phone, setPhone] = useState(params.record.phone);
     const [birthdate, setBirthdate] = useState(params.record.birthdate);

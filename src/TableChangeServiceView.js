@@ -1,15 +1,20 @@
 import axios from "axios";
 import dateFormat from 'dateformat';
+import settings from './settings.json'
 
 class TableChangeServiceView {
+	constructor(){
+		this.url = settings.sheet;
+	}
 
-
+	async getRecords(idOrder){
+		return await axios.get(`${this.url}/idOrder/${idOrder}`);
+	}
 
 	insertRecord(record, dbType, index, idOrder, emailOwner, actualDate, actualTime) {
 		switch (dbType) {
 			// insert direct to google table
 			case 1: {
-				let url = "https://sheet.best/api/sheets/9789324f-9b9f-40c2-85d2-30e3de0fa441";
 				let dataRequest = [{
 					number: index,
 					firstname: record.firstname, 
@@ -28,7 +33,7 @@ class TableChangeServiceView {
 					method: "POST",
 					headers: { "content-type": "application/json" },
 					data: dataRequest,
-					url
+					url: this.url
 				};
 				axios(options).then(res => {
 					console.log("the data was added in the table ", res.data);
@@ -49,7 +54,7 @@ class TableChangeServiceView {
 	deleteRecord(id, dbType) {
 		switch (dbType) {
 			case 1: {
-				axios.delete("https://sheet.best/api/sheets/9789324f-9b9f-40c2-85d2-30e3de0fa441/number/" + id).then(res => {
+				axios.delete(`${this.url}/number/${id}`).then(res => {
 					console.log("the appointment was canceled");
 				});
 			}
@@ -69,7 +74,7 @@ class TableChangeServiceView {
 	updateRecord(record, dbType) {
 		switch (dbType) {
 			case 1: {
-				let url = "https://sheet.best/api/sheets/9789324f-9b9f-40c2-85d2-30e3de0fa441/" + this.state.numberUpdate - 1;
+				let url = `${this.url}/${this.state.numberUpdate - 1}`;
 				let dataRequest = [{ number: record.numberUpdate, firstname: record.firstname, lastname: record.lastname, phone: record.phone, email: record.email, birhtDate: record.birhtDate }];
 				let options = {
 					method: "PATCH",
