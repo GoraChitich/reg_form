@@ -4,14 +4,14 @@ import DatePicker from "react-datepicker";
 import './StrTable.css';
 
 export default function StrTable(params) {
-    const [firstName, setFirstName] = useState(params.record.firstName);
+    const [firstname, setFirstName] = useState(params.record.firstName);
     const [lastname, setLastName] = useState(params.record.lastName);
     const [email, setEmail] = useState(params.record.email);
     const [phone, setPhone] = useState(params.record.phone);
     const [birthdate, setBirthdate] = useState(params.record.birthdate);
 
     useEffect(()=>{
-        params.funcCallBack({firstName, lastname, email, phone, birthdate});
+        params.funcCallBack({firstname, lastname, email, phone, birthdate, isVisible: params.record.isVisible, id: params.record.id});
     });
 
     return (
@@ -19,7 +19,7 @@ export default function StrTable(params) {
             <h2>{`Person # ${params.index+1}`}</h2>
             <div className='input-div1'>
                 <label className='label1' htmlFor='firstname{index}'>Vorname <span class="reqsymbol">*</span></label>
-                <input type='text' name="firstname{index}" id='firstname{index}' className='input1' value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+                <input type='text' name="firstname{index}" id='firstname{index}' className='input1' value={firstname} onChange={(e) => setFirstName(e.target.value)} required />
                 {/* <input type='text' name="firstname{index}" id='firstname{index}' className='input1' value={record.firstname} onChange={this.handleChangeFirstName} required /> */}
             </div>
             <div className='input-div2'>

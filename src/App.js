@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 class App extends Component {
 
   render() {
-    const baseName = window.location.hostname === 'localhost' ? null : process.env.PUBLIC_URL;
+    const baseName = process.env.PUBLIC_URL;
 
     return (
       <Router basename={baseName}>

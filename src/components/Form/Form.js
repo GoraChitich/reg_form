@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import Record from './../../models/Record';
 import TableChangeServiceView from './../../TableChangeServiceView.js'
 import StrTable from '../StrTable/StrTable';
-
+import {generateID} from '../../models/utils'
 import './Form.css'
 
 
@@ -58,9 +58,11 @@ class Form extends Component {
 				isTableFilled: false,
 				isUpdate: false,
 				actualDate: new Date(),
+				actualTime: '10-00',
 				maxCountOfPersons: 50,
 				regButton: false,
-				regButtonCaption: "Anmelden"
+				regButtonCaption: "Anmelden",
+				idOrder: generateID(),
 			};
 			// this.state.records.push(new Record().createRecord('', '', '', '', new Date(), 'visible'));
 			// for (let i = 1; i < 6; i++) {
@@ -100,39 +102,39 @@ class Form extends Component {
 		this.state.actualDate = date;
 	}
 
-	getTdsOfTr(node) {
-		var attrs = node.attributes;
-		for (var key in attrs) {
-			if (attrs[key] === 'height: 20px'); {
-				if (
-					(node.childNodes[1] != null) && (node.childNodes[2].childNodes[0] != null) && (node.childNodes[2].childNodes[0].rawText != null) &&
-					(node.childNodes[2] != null) && (node.childNodes[3].childNodes[0] != null) && (node.childNodes[3].childNodes[0].rawText != null)
-				) {
-					let currentRow = [{ "number": node.childNodes[1].childNodes[0].rawText, "firstname": node.childNodes[2].childNodes[0].rawText }, { "lastname": node.childNodes[3].childNodes[0].rawText }];
-					this.state.googleTab.push(currentRow);
-					// this.presetRegistryButton();
-					return;
-				}
-			}
-		}
-	}
+	 getTdsOfTr(node) {
+	// 	var attrs = node.attributes;
+	// 	for (var key in attrs) {
+	// 		if (attrs[key] === 'height: 20px'); {
+	// 			if (
+	// 				(node.childNodes[1] != null) && (node.childNodes[2].childNodes[0] != null) && (node.childNodes[2].childNodes[0].rawText != null) &&
+	// 				(node.childNodes[2] != null) && (node.childNodes[3].childNodes[0] != null) && (node.childNodes[3].childNodes[0].rawText != null)
+	// 			) {
+	// 				let currentRow = [{ "number": node.childNodes[1].childNodes[0].rawText, "firstname": node.childNodes[2].childNodes[0].rawText }, { "lastname": node.childNodes[3].childNodes[0].rawText }];
+	// 				this.state.googleTab.push(currentRow);
+	// 				// this.presetRegistryButton();
+	// 				return;
+	// 			}
+	// 		}
+	// 	}
+	 }
 
 
 	getFirstDataFromTable() {
-		let url = "https://docs.google.com/spreadsheets/d/14z1wb8Ei0-6rwiS6qUIvz8BJVEWhK0IMIOJnvCvkz94/edit#gid=0";
-		axios.get(url).then(res => {
-			const restData = res.data;
-			var root = HTMLParser.parse(restData);
-			var tabTag = root.querySelector('table');
-			if (tabTag != null) {
-				var tabBody = tabTag.querySelector('tbody');
-				if ((tabBody != null) && (tabBody.childNodes != null)) {
-					tabBody.childNodes.forEach(this.getTdsOfTr);
-				}
-			}
-		}
-			//	this.setState({ restData });
-		);
+		// let url = "https://docs.google.com/spreadsheets/d/14z1wb8Ei0-6rwiS6qUIvz8BJVEWhK0IMIOJnvCvkz94/edit#gid=0";
+		// axios.get(url).then(res => {
+		// 	const restData = res.data;
+		// 	var root = HTMLParser.parse(restData);
+		// 	var tabTag = root.querySelector('table');
+		// 	if (tabTag != null) {
+		// 		var tabBody = tabTag.querySelector('tbody');
+		// 		if ((tabBody != null) && (tabBody.childNodes != null)) {
+		// 			tabBody.childNodes.forEach(this.getTdsOfTr);
+		// 		}
+		// 	}
+		// }
+		// 	//	this.setState({ restData });
+		// );
 	}
 
 	handleChangeFirstName(event) {
@@ -212,27 +214,29 @@ class Form extends Component {
 
 
 	submitHandlerAdd() {
-		this.tableChangeServiceView.insertRecord(this.state.records[0],1);
+		//1. saving all records
+		this.state.records.forEach((element, index) => this.tableChangeServiceView.insertRecord(element,1, index+1, this.state.idOrder, this.state.regEmail, this.state.actualDate, this.state.actualTime) )
+		// this.tableChangeServiceView.insertRecord(this.state.records[0],1);
 
-		emailjs.init("user_kKJTlTMteUmJ0TVwOLNC2");
-		let templateParams = {
-			from_name: 'smolbars@gmail.com',
-			to_name: this.state.email,
-			subject: "Anmeldung auf der Liturgie in russischen Orthodoxkirche Stuttgart",
-			html: this.createUpdateStr("Sehr geehrte Damen und Herren, Sie haben erfoglreich angemeldet")
-		};
-		emailjs.send(
-			'service_1ls6zy5',
-			'template_beve9nh',
-			templateParams
-		).then(
-			function (response) {
-				console.log(response.status, response.text);
-			},
-			function (err) {
-				console.log(err);
-			}
-		);
+		// emailjs.init("user_kKJTlTMteUmJ0TVwOLNC2");
+		// let templateParams = {
+		// 	from_name: 'smolbars@gmail.com',
+		// 	to_name: this.state.email,
+		// 	subject: "Anmeldung auf der Liturgie in russischen Orthodoxkirche Stuttgart",
+		// 	html: this.createUpdateStr("Sehr geehrte Damen und Herren, Sie haben erfoglreich angemeldet")
+		// };
+		// emailjs.send(
+		// 	'service_1ls6zy5',
+		// 	'template_beve9nh',
+		// 	templateParams
+		// ).then(
+		// 	function (response) {
+		// 		console.log(response.status, response.text);
+		// 	},
+		// 	function (err) {
+		// 		console.log(err);
+		// 	}
+		// );
 		this.setState({ redirect: true });
 	}
 
@@ -252,7 +256,7 @@ class Form extends Component {
 					})
 					}
 					</tbody>
-					<button onClick={this.delAppointment()}>
+					<button onClick={()=>this.delAppointment()}>
 						Termin stornieren
 		    </button>
 				</table>
@@ -284,12 +288,12 @@ class Form extends Component {
 					<div class='sector'>
 						<div>
 							<label> Termin der Lithurigie oder Dienst</label>
-							<DatePicker selected={this.state.actualDate} onSelect={this.handleChangeDatePicker} dateFormat="yyyy-MM-dd" peekNextMonth={true}
+							<DatePicker selected={this.state.actualDate} onSelect={(date) => this.setState({actualDate: date})} dateFormat="yyyy-MM-dd" peekNextMonth={true}
 								showMonthDropdown={true} showYearDropdown={true} dropdownMode="select" shouldCloseOnSelect={true} />
 						</div>
 						<div><label>Typ der Anbetung:</label></div>
-						<label><input type='radio' id='prayer' name='prayer' value='1' checked />Morgen (um 10.00)</label><br></br>
-						<label><input type='radio' id='prayer' name='prayer' value='2' />Abend (um 18.00)</label><br></br>
+						<label><input type='radio' id='prayer' name='prayer' value='1' onChange={()=> this.setState({ actualTime: '10-00'})} checked />Morgen (um 10.00)</label><br></br>
+						<label><input type='radio' id='prayer' name='prayer' value='2' onChange={()=> this.setState({ actualTime: '18-00'})} />Abend (um 18.00)</label><br></br>
 						{/* <label><input type="radio" id='prayer' name='prayer' value='3' />Lithurgie</label><br></br> */}
 						<div>
 							<label>Anzahl der Personen: <b> {this.state.records.length}</b></label>

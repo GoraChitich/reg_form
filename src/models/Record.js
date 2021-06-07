@@ -1,3 +1,4 @@
+import { generateID } from "./utils";
 
 class Record {
 	
@@ -9,6 +10,7 @@ class Record {
             this.phone =  '';
             this.birthdate = '';
          this.isVisible = '';
+         this.id = generateID();
         			
 	}
 
@@ -27,6 +29,8 @@ class Record {
         this.phone = phone;
         this.birthdate = birthdate;
         this.visible = visible;
+        this.id = generateID();
+
         return this;
     }
 
