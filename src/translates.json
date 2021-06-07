@@ -1,6 +1,21 @@
 {
-"name":{"de":"Name", "ru":"Имя"},
+"name":{"de":"Name", "ru":"Фамилия"},
+"first name":{"de":"Vorname", "ru":"Имя"},
 "delete" {"de":"löschen", "ru":"удалить"},
 "add 1 persone" {"de":"Eine Persone hinzufügen", "ru":добавить 1 человека"},
-
+"Registration":{"de":"Anmelden", "ru":"Регистрация"},
+"Phone":{"de":"Telefon", "ru":"Номер телефона"},
+"Email":{"de":"Email", "ru":"электронная почта"},
+"Date of birth":{"de":"Geburtsdatum", "ru":"Дата рождения"},
+"Date":{"de":"Datum", "ru":"Дата"},
+"Add":{"de":"Hinzufügen", "ru":"Добавить"},
+"Cancel":{"de":"Stornieren", "ru":"Отменить"},
+"Update":{"de":"Ändern", "ru":"Изменить"},
+"Type of pray":{"de":"Typ der Anbetung", "ru":"Тип молитвы"},
+"morning":{"de":"Morgen", "ru":"заутрення"},
+"evening":{"de":"Abend", "ru":"вечерня"},
+"number of persons":{"de":"Anzahl der Personen", "ru":"Количество человек"},
+"person":{"de":"Person", "ru":"человек"},
+"add one person":{"de":"Einen Person hinzufügen", "ru":"добавить одного человека"},
+"Appointment of liturgy or service":{"de":"Termin der Lithurigie oder Dienst", "ru":"Запись на службу или литургию"}
 }
