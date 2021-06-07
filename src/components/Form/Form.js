@@ -122,60 +122,6 @@ class Form extends Component {
 		}
 	}
 
-	// handleChangeDatePicker(date) {
-	// 	this.state.actualDate = date;
-	// }
-
-	// getTdsOfTr(node) {
-	// 	// 	var attrs = node.attributes;
-	// 	// 	for (var key in attrs) {
-	// 	// 		if (attrs[key] === 'height: 20px'); {
-	// 	// 			if (
-	// 	// 				(node.childNodes[1] != null) && (node.childNodes[2].childNodes[0] != null) && (node.childNodes[2].childNodes[0].rawText != null) &&
-	// 	// 				(node.childNodes[2] != null) && (node.childNodes[3].childNodes[0] != null) && (node.childNodes[3].childNodes[0].rawText != null)
-	// 	// 			) {
-	// 	// 				let currentRow = [{ "number": node.childNodes[1].childNodes[0].rawText, "firstname": node.childNodes[2].childNodes[0].rawText }, { "lastname": node.childNodes[3].childNodes[0].rawText }];
-	// 	// 				this.state.googleTab.push(currentRow);
-	// 	// 				// this.presetRegistryButton();
-	// 	// 				return;
-	// 	// 			}
-	// 	// 		}
-	// 	// 	}
-	// }
-
-
-	// getFirstDataFromTable() {
-	// 	// let url = "https://docs.google.com/spreadsheets/d/14z1wb8Ei0-6rwiS6qUIvz8BJVEWhK0IMIOJnvCvkz94/edit#gid=0";
-	// 	// axios.get(url).then(res => {
-	// 	// 	const restData = res.data;
-	// 	// 	var root = HTMLParser.parse(restData);
-	// 	// 	var tabTag = root.querySelector('table');
-	// 	// 	if (tabTag != null) {
-	// 	// 		var tabBody = tabTag.querySelector('tbody');
-	// 	// 		if ((tabBody != null) && (tabBody.childNodes != null)) {
-	// 	// 			tabBody.childNodes.forEach(this.getTdsOfTr);
-	// 	// 		}
-	// 	// 	}
-	// 	// }
-	// 	// 	//	this.setState({ restData });
-	// 	// );
-	// }
-
-	// handleChangeFirstName(event) {
-	// 	this.setState({ firstname: event.target.value });
-	// }
-
-	// handleChangeLastName(event) {
-	// 	this.setState({ lastname: event.target.value });
-	// }
-
-	// handleChangeEmail(event) {
-	// 	this.setState({ email: event.target.value });
-	// }
-
-	// handleChangePhone(event) {
-	// 	this.setState({ phone: event.target.value });
-	// }
 
 	submitHandler(event) {
 		event.preventDefault();
@@ -200,7 +146,7 @@ class Form extends Component {
 			emailjs.init(settings.emailjs.user_id);
 			let templateParams = {
 				from_name: settings.emailjs.from_name,
-				to_name: this.state.email,
+				to_name: element.email,
 			};
 			emailjs.send(
 				settings.emailjs.service_id,
@@ -314,7 +260,7 @@ class Form extends Component {
 						</div>
 						<div className='reg-email'>
 							<label className='' htmlFor='regemail'>Email for registration <span class="reqsymbol">*</span></label>
-							<input type='text' name="regemail" id='regemail' className='input1' value={this.state.regEmail} onChange={(e) => this.setState({ regEmail: e.target.value })} required />
+							<input type='email' name="regemail" id='regemail' className='input1' value={this.state.regEmail} onChange={(e) => this.setState({ regEmail: e.target.value })} required />
 							{/* <input type='text' name="firstname{index}" id='firstname{index}' className='input1' value={record.firstname} onChange={this.handleChangeFirstName} required /> */}
 						</div>
 					</div>

@@ -27,7 +27,7 @@ export default function StrTable(params) {
             </div>
             <div className='input-div2'>
                 <label className='label2' htmlFor='lastname1'>Name <span class="reqsymbol">*</span></label>
-                <input type='text' name='lastname{index}' id='lastname{index}' className='input1' value={lastname} onChange={(e) => setLastName(e.target.value)} required />
+                <input type='email' name='lastname{index}' id='lastname{index}' className='input1' value={lastname} onChange={(e) => setLastName(e.target.value)} required />
                 {/* <input type='text' name='lastname{index}' id='lastname{index}' className='input1' value={record.lastname} onChange={this.handleChangeLastName} required /> */}
             </div>
             <div className='input-div3'>
