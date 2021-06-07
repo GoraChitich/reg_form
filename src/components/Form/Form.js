@@ -228,6 +228,7 @@ class Form extends Component {
 				<StrTable
 					record={record}
 					index={index}
+					count={this.state.records.length}
 					funcCallBack={(result) => {
 						this.state.records[index] = result
 					}}
@@ -258,20 +259,16 @@ class Form extends Component {
 							<label>Anzahl der Personen: <b> {this.state.records.length}</b></label>
 
 						</div>
-						<div className='reg-email'>
-							<label className='' htmlFor='regemail'>Email for registration <span class="reqsymbol">*</span></label>
-							<input type='email' name="regemail" id='regemail' className='input1' value={this.state.regEmail} onChange={(e) => this.setState({ regEmail: e.target.value })} required />
-							{/* <input type='text' name="firstname{index}" id='firstname{index}' className='input1' value={record.firstname} onChange={this.handleChangeFirstName} required /> */}
-						</div>
-					</div>
-					<br></br>
-					{items}
-					<button onClick={() => {
+						<button onClick={() => {
 						this.setState(
 							{ records: this.state.records.concat(new Record()) })
 					}} >
-						Add 1 person
+						Eine Persone hinzufügen
 					</button>
+					</div>
+					<br></br>
+					{items}
+					
 
 					<button type="submit">
 						{this.state.regButtonCaption}
