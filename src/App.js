@@ -8,17 +8,20 @@ import DelAppointment from './DelAppointment.js';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
 class App extends Component {
-  
- render() { return (
-   <Router>
-      <div className="App">
-		    <Route path="/" exact component={Form}/>
-        <Route path="/updateAppointment" exact component={Form}/>
-        <Route path="/delAppointment" exact component={DelAppointment}/>
-      </div>
-	</Router>	  
-  );
- }
+
+  render() {
+    const baseName = window.location.hostname === 'localhost' ? null : process.env.PUBLIC_URL;
+
+    return (
+      <Router basename={baseName}>
+        <div className="App">
+          <Route path="/" exact component={Form} />
+          <Route path="/updateAppointment" exact component={Form} />
+          <Route path="/delAppointment" exact component={DelAppointment} />
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

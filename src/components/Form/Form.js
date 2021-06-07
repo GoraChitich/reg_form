@@ -212,7 +212,7 @@ class Form extends Component {
 
 
 	submitHandlerAdd() {
-		this.tableChangeServiceView.insertRecord(this.state.records[0]);
+		this.tableChangeServiceView.insertRecord(this.state.records[0],1);
 
 		emailjs.init("user_kKJTlTMteUmJ0TVwOLNC2");
 		let templateParams = {
@@ -266,7 +266,8 @@ class Form extends Component {
 				<StrTable
 					record={record}
 					index={index}
-					funcCallBack={(result) => { record[index] = result }}
+					funcCallBack={(result) => { 
+						this.state.records[index] = result }}
 					deleteRecord={() => {
 						//copy array and delete current element
 						console.log(this.state.records);
