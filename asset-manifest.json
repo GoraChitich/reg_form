@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/reg_form/static/css/main.cbca9cd6.chunk.css",
-    "main.js": "/reg_form/static/js/main.034bcbea.chunk.js",
-    "main.js.map": "/reg_form/static/js/main.034bcbea.chunk.js.map",
+    "main.css": "/reg_form/static/css/main.cac57544.chunk.css",
+    "main.js": "/reg_form/static/js/main.ead57227.chunk.js",
+    "main.js.map": "/reg_form/static/js/main.ead57227.chunk.js.map",
     "runtime-main.js": "/reg_form/static/js/runtime-main.cc567e0f.js",
     "runtime-main.js.map": "/reg_form/static/js/runtime-main.cc567e0f.js.map",
     "static/css/2.f6250c70.chunk.css": "/reg_form/static/css/2.f6250c70.chunk.css",
@@ -12,14 +12,14 @@
     "static/js/3.cfd4cdb5.chunk.js.map": "/reg_form/static/js/3.cfd4cdb5.chunk.js.map",
     "index.html": "/reg_form/index.html",
     "static/css/2.f6250c70.chunk.css.map": "/reg_form/static/css/2.f6250c70.chunk.css.map",
-    "static/css/main.cbca9cd6.chunk.css.map": "/reg_form/static/css/main.cbca9cd6.chunk.css.map",
+    "static/css/main.cac57544.chunk.css.map": "/reg_form/static/css/main.cac57544.chunk.css.map",
     "static/js/2.54ea6565.chunk.js.LICENSE.txt": "/reg_form/static/js/2.54ea6565.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.cc567e0f.js",
     "static/css/2.f6250c70.chunk.css",
     "static/js/2.54ea6565.chunk.js",
-    "static/css/main.cbca9cd6.chunk.css",
-    "static/js/main.034bcbea.chunk.js"
+    "static/css/main.cac57544.chunk.css",
+    "static/js/main.ead57227.chunk.js"
   ]
 }
