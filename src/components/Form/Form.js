@@ -201,23 +201,10 @@ class Form extends Component {
 	render() {
 		// in this brunch need a show data from a filled before table and create a delete button^
 		if (this.state.redirect) {
-			return (
-				<table>
-					<tbody>{this.state.googleTab.map(function (item, key) {
-						return (
-							<tr key={key}>
-								<td>{item[1].number}</td>
-								<td>{item[1].firstname}</td>
-								<td>{item[1].lastname}</td>
-							</tr>
-						)
-					})
-					}
-					</tbody>
-					<button onClick={() => this.delAppointment()}>
-						Termin stornieren
-		    </button>
-				</table>
+			return (<div>
+				{`Sehr geehrte Damen und Herren,
+Ihre Termin beim Russischen Orthodoxische Kirche auf ${this.state.actualDate} um ${this.state.actualTime} hatte ausgemacht, wenn wünschen Sie etwas ändern oder stornieren, dann schauen Sie bitte Ihre Mailboxes`}
+			</div>
 			)
 		}
 		else {
@@ -232,6 +219,7 @@ class Form extends Component {
 					funcCallBack={(result) => {
 						this.state.records[index] = result
 					}}
+					addRecord={() => this.setState({ records: this.state.records.concat(new Record()) })}
 					deleteRecord={() => {
 						//copy array and delete current element
 						console.log(this.state.records);
@@ -259,16 +247,16 @@ class Form extends Component {
 							<label>Anzahl der Personen: <b> {this.state.records.length}</b></label>
 
 						</div>
-						<button onClick={() => {
+						{/* <button onClick={() => {
 						this.setState(
 							{ records: this.state.records.concat(new Record()) })
 					}} >
 						Eine Persone hinzufügen
-					</button>
+					</button> */}
 					</div>
 					<br></br>
 					{items}
-					
+
 
 					<button type="submit">
 						{this.state.regButtonCaption}

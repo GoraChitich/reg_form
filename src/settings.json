@@ -7,7 +7,7 @@
         "from_name": "smolbars@gmail.com"
     },
     "site": {
-        "host": "https://gorachitich.github.io/reg_form"
+         "host": "http://localhost:3000"
     },
     "sheet":"https://sheet.best/api/sheets/9789324f-9b9f-40c2-85d2-30e3de0fa441"
 }
