@@ -1,5 +1,5 @@
 .strtable-c{
-    border: 3px solid black;
+    /* border: 3px solid black; */
     display: visible;
     display: flex;
     justify-content: center;
@@ -39,4 +39,15 @@
 
 .strtable-c .minus{
     background-color: red;
+}
+
+.strtable-c .input{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin: 10px 0;
+}
+
+.strtable-c label{
+    text-align: left;
 }

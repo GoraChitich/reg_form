@@ -1,6 +1,6 @@
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -27,7 +27,7 @@
 	margin-bottom: 5px;
 }
 
-.label1 {
+/* .label1 {
 	display: block;
 	margin-right: 85px;
 }
@@ -54,7 +54,7 @@
 
 .input1 {
 	margin-left: 5px;
-}
+} */
 
 .reqsymbol {
 	color: #ff0000;
@@ -70,10 +70,10 @@
   display: visible;
   display: block;
 }
-
+/* 
 .sector {
   border: 3px solid black;
-}
+} */
 
 @keyframes App-logo-spin {
   from {
