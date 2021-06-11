@@ -1,7 +1,7 @@
 # Getting Started
 
 ## Installation
-1. Get changes from main branch https://github.com/GoraChitich/reg_form.git to local folder
+1. Get changes from the main branch https://github.com/GoraChitich/reg_form.git to the local folder
 2. Installation. On the project directory you can run:
 ### npm install
 ## 3. Running. 
