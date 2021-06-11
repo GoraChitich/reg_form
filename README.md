@@ -13,7 +13,7 @@ In the project directory, you can run:
 Set your site name in the parameter "homepage" :  "http(s)://you_domain_com",
 
 ### /src/settings.json
-Set settings for https://www.emailjs.com/
+Set settings for https://www.emailjs.com
       "emailjs":{
         "service_id":"YOUR_SERVICE_ID",
         "user_id":"YOUR_USER_ID",
@@ -29,12 +29,13 @@ Set settings for https://www.emailjs.com/
     "sheet":"GOOGLE_DOCS_ADDRESS"
 }
 
+## 5. Starting
 ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-
+6. Building 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
