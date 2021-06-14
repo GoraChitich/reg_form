@@ -16,12 +16,15 @@ import settings from '../../settings.json'
 import texts from '../../translates.json'
 import { useParams } from 'react-router';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import imgRussia from '../../asserts/icons/russia.png';
+import imgGermany from '../../asserts/icons/germany.png';
 
 
 class Form extends Component {
 
 	constructor(props) {
 		super(props);
+
 		this.propsID = props.id;
 		// console.log(props);
 		// const params = new URLSearchParams(props.location.search);
@@ -182,6 +185,9 @@ class Form extends Component {
 	render() {
 		// in this brunch need a show data from a filled before table and create a delete button^
 		if (this.state.redirect) {
+			//			if(this.referrer){
+			window.history.back();
+			//			}
 			return (<div>
 				{`Sehr geehrte Damen und Herren,
 Ihre Termin beim Russischen Orthodoxische Kirche auf ${this.state.actualDate} um ${this.state.actualTime} hatte ausgemacht, wenn wünschen Sie etwas ändern oder stornieren, dann schauen Sie bitte Ihre Mailboxes`}
@@ -238,7 +244,7 @@ Ihre Termin beim Russischen Orthodoxische Kirche auf ${this.state.actualDate} um
 												</div>
 											</div>
 											<div className="change-langauge">
-												<label for="langid">Sprache/Язык:</label>
+												<label for="langid"><img src={imgGermany} /> <img src={imgRussia} /></label>
 												<select onChange={(e) => this.setState({ lang: e.target.value })}>
 													<option value="ru" selected={this.state.lang === 'ru'}>Русский</option>
 													<option value="de" selected={this.state.lang === 'de'}>Deutsch</option>

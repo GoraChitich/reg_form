@@ -8,7 +8,6 @@ import DeleteOrder from './components/DeleteOrder/DeleteOrder';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-
   const baseName = process.env.PUBLIC_URL;
   return (
     <div className="App">

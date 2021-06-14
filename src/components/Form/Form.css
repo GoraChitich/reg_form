@@ -16,3 +16,13 @@
     flex-direction: column;
     justify-content: left;
 }
+
+.regform .change-langauge{
+    display: flex;
+    height: fit-content;
+}
+
+.regform .change-langauge label{
+    margin-bottom: 0;
+    margin-right: 5px;
+}
