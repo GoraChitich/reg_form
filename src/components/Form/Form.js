@@ -13,7 +13,9 @@ import { generateID, getDateFromFormat } from '../../models/utils'
 import './Form.css'
 
 import settings from '../../settings.json'
+import texts from '../../translates.json'
 import { useParams } from 'react-router';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 
 
 class Form extends Component {
@@ -23,10 +25,8 @@ class Form extends Component {
 		this.propsID = props.id;
 		// console.log(props);
 		// const params = new URLSearchParams(props.location.search);
-		const numRecords = [1, 2, 3, 4, 5, 6];
-		const isUpdate = props.update;
-		// let isUpdate = params.get('isUpdate');
-		// let cntPersons = params.get('cntPersons');
+		const defaultLang = window.navigator.language === 'ru-RU' ? 'ru' : 'de';
+
 		// this case - update exists records in the table
 		if (this.propsID) {
 			this.state = {
@@ -38,20 +38,7 @@ class Form extends Component {
 				maxCountOfPersons: 50,
 				regButton: false,
 				regButtonCaption: "Ändern",
-				// actualDate: new Date(params.get('date') + 'T00:00:00Z'),
-				// the number for update
-				// numberUpdate: params.get('number')
 			};
-			// set records to array for show data for update 
-			// for (let i = 0; i < cntPersons - 1; i++) {
-			// 	new Record().setRecord(params.get('firstname' + i + 1),
-			// 		params.get('lastname' + i + 1),
-			// 		params.get('phone' + i + 1),
-			// 		params.get('email' + i + 1),
-			// 		params.get('birhtday' + i + 1)
-			// 	);
-			// 	this.state.records.push(Record);
-			// }
 
 		}
 		// case adding data in the table (the first setting data)
@@ -70,24 +57,13 @@ class Form extends Component {
 				regButton: false,
 				regButtonCaption: "Anmelden",
 				idOrder: generateID(),
+				lang: defaultLang
 			};
-			// this.state.records.push(new Record().createRecord('', '', '', '', new Date(), 'visible'));
-			// for (let i = 1; i < 6; i++) {
-			// 	this.state.records.push(new Record().createRecord('', '', '', '', new Date(), 'hidden'));
-			// }
+
 		}
 		this.changeOfPersons = this.changeOfPersons.bind(this);
 		this.presetRegistryButton = this.presetRegistryButton.bind(this);
-		// this.handleChangeDatePicker = this.handleChangeDatePicker.bind(this);
-		// this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
-		// this.handleChangeLastName = this.handleChangeLastName.bind(this);
-		// this.handleChangeEmail = this.handleChangeEmail.bind(this);
-		// this.handleChangePhone = this.handleChangePhone.bind(this);
 		this.submitHandler = this.submitHandler.bind(this);
-		// this.submitHandlerUpdate = this.handleChangePhone.bind(this);
-		// this.submitHandlerAdd = this.submitHandlerAdd.bind(this);
-		// this.getTdsOfTr = this.getTdsOfTr.bind(this);
-		// this.getFirstDataFromTable = this.getFirstDataFromTable.bind(this);
 		this.tableChangeServiceView = new TableChangeServiceView();
 	}
 
@@ -109,6 +85,11 @@ class Form extends Component {
 				.catch((error) => console.error(error));
 		}
 	}
+
+	componentDidUpdate() {
+		console.log(this.state);
+	}
+
 	changeOfPersons(event) {
 
 	}
@@ -201,23 +182,10 @@ class Form extends Component {
 	render() {
 		// in this brunch need a show data from a filled before table and create a delete button^
 		if (this.state.redirect) {
-			return (
-				<table>
-					<tbody>{this.state.googleTab.map(function (item, key) {
-						return (
-							<tr key={key}>
-								<td>{item[1].number}</td>
-								<td>{item[1].firstname}</td>
-								<td>{item[1].lastname}</td>
-							</tr>
-						)
-					})
-					}
-					</tbody>
-					<button onClick={() => this.delAppointment()}>
-						Termin stornieren
-		    </button>
-				</table>
+			return (<div>
+				{`Sehr geehrte Damen und Herren,
+Ihre Termin beim Russischen Orthodoxische Kirche auf ${this.state.actualDate} um ${this.state.actualTime} hatte ausgemacht, wenn wünschen Sie etwas ändern oder stornieren, dann schauen Sie bitte Ihre Mailboxes`}
+			</div>
 			)
 		}
 		else {
@@ -226,12 +194,14 @@ class Form extends Component {
 			let index = 0;
 			const items = this.state.records.map((record, index) =>
 				<StrTable
+					lang={this.state.lang}
 					record={record}
 					index={index}
 					count={this.state.records.length}
 					funcCallBack={(result) => {
 						this.state.records[index] = result
 					}}
+					addRecord={() => this.setState({ records: this.state.records.concat(new Record()) })}
 					deleteRecord={() => {
 						//copy array and delete current element
 						console.log(this.state.records);
@@ -244,36 +214,47 @@ class Form extends Component {
 				/>
 			);
 			return (
-				<form className="regForm" onSubmit={this.submitHandler}>
-					<div class='sector'>
-						<div>
-							<label> Termin der Lithurigie oder Dienst</label>
-							<DatePicker selected={this.state.actualDate} onSelect={(date) => this.setState({ actualDate: date })} dateFormat="yyyy-MM-dd" peekNextMonth={true}
-								showMonthDropdown={true} showYearDropdown={true} dropdownMode="select" shouldCloseOnSelect={true} />
-						</div>
-						<div><label>Typ der Anbetung:</label></div>
-						<label><input type='radio' id='prayer' name='prayer' value='1' onChange={() => this.setState({ actualTime: '10-00' })} checked={this.state.actualTime === '10-00'} />Morgen (um 10.00)</label><br></br>
-						<label><input type='radio' id='prayer' name='prayer' value='2' onChange={() => this.setState({ actualTime: '18-00' })} checked={this.state.actualTime === '18-00'} />Abend (um 18.00)</label><br></br>
-						{/* <label><input type="radio" id='prayer' name='prayer' value='3' />Lithurgie</label><br></br> */}
-						<div>
-							<label>Anzahl der Personen: <b> {this.state.records.length}</b></label>
+				<Container>
+					<Row>
+						<Col >
+							<Card>
+								<Card.Body>
 
-						</div>
-						<button onClick={() => {
-						this.setState(
-							{ records: this.state.records.concat(new Record()) })
-					}} >
-						Eine Persone hinzufügen
-					</button>
-					</div>
-					<br></br>
-					{items}
-					
+									<form className="regform" onSubmit={this.submitHandler}>
+										<div class='sector'>
+											<div className='part1'>
+												<div>
+													<label> {texts['Appointment of liturgy or service'][this.state.lang]}</label>
+													<DatePicker selected={this.state.actualDate} onSelect={(date) => this.setState({ actualDate: date })} dateFormat="yyyy-MM-dd" peekNextMonth={true}
+														showMonthDropdown={true} showYearDropdown={true} dropdownMode="select" shouldCloseOnSelect={true} />
+												</div>
+												<div><label>{texts['Type of pray'][this.state.lang]}</label></div>
+												<label><input type='radio' id='prayer' name='prayer' value='1' onChange={() => this.setState({ actualTime: '10-00' })} checked={this.state.actualTime === '10-00'} />{texts['morning'][this.state.lang]}</label>
+												<label><input type='radio' id='prayer' name='prayer' value='2' onChange={() => this.setState({ actualTime: '18-00' })} checked={this.state.actualTime === '18-00'} />{texts['evening'][this.state.lang]}</label>
+												{/* <label><input type="radio" id='prayer' name='prayer' value='3' />Lithurgie</label><br></br> */}
+												<div>
+													<label>{texts['number of persons'][this.state.lang]}: <b> {this.state.records.length}</b></label>
 
-					<button type="submit">
-						{this.state.regButtonCaption}
-					</button>
-				</form>
+												</div>
+											</div>
+											<div className="change-langauge">
+												<label for="langid">Sprache/Язык:</label>
+												<select onChange={(e) => this.setState({ lang: e.target.value })}>
+													<option value="ru" selected={this.state.lang === 'ru'}>Русский</option>
+													<option value="de" selected={this.state.lang === 'de'}>Deutsch</option>
+												</select>
+											</div>
+										</div>
+										{items}
+
+										<Container className="text-center" ><Button type="submit" className="text-center">
+											{texts['Registration'][this.state.lang]}
+										</Button></Container>
+
+									</form>
+								</Card.Body>
+							</Card>
+						</Col></Row> </Container>
 			)
 		}
 	}
