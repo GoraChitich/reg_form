@@ -244,23 +244,26 @@ Ihre Termin beim Russischen Orthodoxische Kirche auf ${this.state.actualDate} um
 												</div>
 											</div>
 											<div className="change-langauge">
-												<label for="langid"><img src={imgGermany} /> <img src={imgRussia} /></label>
-												<select onChange={(e) => this.setState({ lang: e.target.value })}>
+												{/* <label for="langid"> */}
+												<img title='Deutsch' src={imgGermany} onClick={() => this.setState({ lang: "de" })} />
+												<img title='Русский' src={imgRussia} onClick={() => this.setState({ lang: "ru" })} />
+												{/* </label> */}
+											{/* <select onChange={(e) => this.setState({ lang: e.target.value })}>
 													<option value="ru" selected={this.state.lang === 'ru'}>Русский</option>
 													<option value="de" selected={this.state.lang === 'de'}>Deutsch</option>
-												</select>
-											</div>
+												</select> */}
 										</div>
-										{items}
+										</div>
+									{items}
 
-										<Container className="text-center" ><Button type="submit" className="text-center">
-											{texts['Registration'][this.state.lang]}
-										</Button></Container>
+									<Container className="text-center" ><Button type="submit" className="text-center">
+										{texts['Registration'][this.state.lang]}
+									</Button></Container>
 
 									</form>
 								</Card.Body>
 							</Card>
-						</Col></Row> </Container>
+						</Col></Row> </Container >
 			)
 		}
 	}
